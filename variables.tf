@@ -44,7 +44,7 @@ variable "allowed_cidr" {
 }
 #r53 variables
 variable "zone_id" {
-    default ="Z0360475I5J9F6KYU31I"
+    default ="Z0860142M3U4BU6H3A2Z"
 }
 variable "domain_name" {
       default = "lingaiah.online"
