@@ -6,7 +6,7 @@ resource "aws_instance" "expense" {
   ami           = var.image_id
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   instance_type = var.instance_names[count.index] == "db" ? "t3.small": "t3.micro"
-  user_data = file("${path.module}/ansible_install.sh")
+
   tags = merge (
     var.common_tags, {
        Name = var.instance_names[count.index]
@@ -39,4 +39,22 @@ resource "aws_security_group" "allow_ssh" {
     Createdby="Lingaiah"
   }
 
+}
+
+resource "aws_instance" "ansible_master" {
+    ami           = data.aws_ami.ami_info.id
+    instance_type = var.ansible_master.instance_type
+    vpc_security_group_ids = [var.allow_all]
+    user_data = file("${path.module}/ansible_install.sh")
+    tags = {
+        Name = "ansible-master"
+    }
+}
+resource "aws_route53_record" "ansible_r53" {
+    zone_id = var.zone_id
+    name    = "ansible.${var.domain_name}"
+    type    = "A"
+    ttl     = 1
+    records = [aws_instance.ansible_master.public_ip]
+    allow_overwrite = true
 }
