@@ -1,14 +1,9 @@
 #ec2 variables
-
 variable "instance_names" {
     type = list
     default = ["db","backend","frontend"]
 }
-variable "image_id" {
-    type =string #optional
-    default = "ami-09c813fb71547fc4f" #optional
-    description ="RHEL-9 AMI ID"  #optional
-}
+
 variable "instance_type" {
     default ="t3.micro"
     type = string
@@ -19,7 +14,6 @@ variable "common_tags" {
         Environment ="Dev"
         Terraform = "true"
     }
-
 }
 variable "sg_name" {
     type = string
@@ -44,7 +38,7 @@ variable "allowed_cidr" {
 }
 #r53 variables
 variable "zone_id" {
-    default ="Z072982421GU8E4T546G0"
+    default ="Z07608533HHBQHW47XU3F"
 }
 variable "domain_name" {
       default = "lingaiah.online"
@@ -52,7 +46,7 @@ variable "domain_name" {
 }
 variable "allow_all" {
    type = string
-   default = "sg-06b1b57b365846051"
+   default = "sg-09c7c70bd56f0d58b"
 }
 variable "ansible_master" {
    default = {
