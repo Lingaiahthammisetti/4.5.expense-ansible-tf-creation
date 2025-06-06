@@ -40,6 +40,9 @@ resource "aws_instance" "ansible_master" {
     tags = {
         Name = "ansible-master"
     }
+    depends_on = [aws_instance.expense]
+
+    
 }
 resource "aws_route53_record" "ansible_r53" {
     zone_id = var.zone_id
